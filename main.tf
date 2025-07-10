@@ -66,7 +66,7 @@ resource "aws_security_group" "ec2_sg" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"] # Replace YOUR_IP with your actual IP
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   egress {
@@ -109,9 +109,7 @@ resource "aws_launch_template" "lt" {
     cat <<'HTML' > /usr/share/nginx/html/register/index.html
     <h1>Register Page</h1>
     HTML
-    sed -i '/location \/ {/a \
-    location /images/ { root /usr/share/nginx/html; }\
-    location /register/ { root /usr/share/nginx/html; }' /etc/nginx/nginx.conf
+    sed -i '/location \/ {/a     location /images/ { root /usr/share/nginx/html; }    location /register/ { root /usr/share/nginx/html; }' /etc/nginx/nginx.conf
     systemctl restart nginx
   EOF
   )
